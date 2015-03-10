@@ -7,12 +7,39 @@ body {
 }
 
 .overlay {
-    position: absolute;
-    margin: 10px;
-    z-index: 20;
+	position: absolute;
+	margin: 10px;
+	z-index: 20;
 }
 
 #lock {
 	right :0;
 	bottom: 0;
 }
+
+.cross{
+	position: absolute;
+	z-index: 20;
+	background-position:top;
+	height: 30px;
+	width : 30px;
+	margin : 5px;
+}
+
+.camera {
+	position: absolute;
+	z-index: 15;
+	height: 250px;
+	width : 350px;
+}
+
+.container{
+	position: absolute;
+	z-index: 10;
+	left: 155px;
+	top: 74px;
+	background-color: rgba(0, 0, 255, 0.1);
+	height: 250px;
+	width : 350px;
+}
+

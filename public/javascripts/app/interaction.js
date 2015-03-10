@@ -1,7 +1,6 @@
 define(['init'], function(init) {
 	$(document).mousedown(function(event) {
 		event.preventDefault();
-
 		var mouse = new THREE.Vector2();
 		var raycaster = new THREE.Raycaster();
 		mouse.x = ( event.clientX / init.renderer.domElement.width ) * 2 - 1;
@@ -9,13 +8,8 @@ define(['init'], function(init) {
 		raycaster.setFromCamera(mouse, init.camera);
 		var intersects = raycaster.intersectObjects(init.objects);
     if (intersects.length > 0) {
-			console.log(intersects[0].object.name);
+			var object = intersects[0].object;
+			$(document).trigger(object.action, object);
 		}
-	});
-	
-	$(window).resize(function() {
-		init.renderer.setSize(window.innerWidth, window.innerHeight);
-		init.camera.aspect = window.innerWidth / window.innerHeight;
-		init.camera.updateProjectionMatrix();
 	});
 });

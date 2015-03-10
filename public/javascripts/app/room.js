@@ -12,6 +12,12 @@ define(['init'], function(init) {
 		init.camera.position.set(0, 45, 1);
 		init.scene.add(init.camera);
 
+		$(window).resize(function() {
+			init.renderer.setSize(window.innerWidth, window.innerHeight);
+			init.camera.aspect = window.innerWidth / window.innerHeight;
+			init.camera.updateProjectionMatrix();
+		});
+		
 		putLights();
 
 		init.loader.options.convertUpAxis = true;

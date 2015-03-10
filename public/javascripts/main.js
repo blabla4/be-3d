@@ -12,7 +12,7 @@ require.config({
 		light: 'app/light',
 		conf: 'app/conf',
 		lock: 'app/lock',
-		events: 'app/events'
+		interaction: 'app/interaction'
   },
 	shim: {
 		'colladaLoader': {
@@ -26,7 +26,7 @@ require.config({
 
 require(['domReady',], function(domReady){
 	domReady(function() {
-		require(['room', 'camera', 'cookie', 'light', 'lock', 'events'], function(room) {
+		require(['room', 'camera', 'cookie', 'light', 'lock', 'interaction'], function(room) {
 			room.show('https://dl.dropboxusercontent.com/u/75902491/renduBlender.dae');
 			return;
 		});
