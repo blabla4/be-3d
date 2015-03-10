@@ -1,42 +1,37 @@
-define(['three', 'colladaLoader', 'orbitControls'], function(three, colladaLoader, orbitControls) {
-	var scene, camera, renderer;
+define(['init'], function(init) {
+	var controls;
 	
-	function init(daeFile) {
-		scene = new THREE.Scene();
-
+	function load(daeFile) {
 		var WIDTH = window.innerWidth,
 			HEIGHT = window.innerHeight;
 
-		renderer = new THREE.WebGLRenderer({antialias:true});
-		renderer.setSize(WIDTH, HEIGHT);
+		init.renderer.setSize(WIDTH, HEIGHT);
 
-		document.body.appendChild(renderer.domElement);
+		document.body.appendChild(init.renderer.domElement);
 
-		camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 0.1, 10000);
-		camera.position.set(50,150,100);
-		scene.add(camera);
+		init.camera.position.set(0, 45, 1);
+		init.scene.add(init.camera);
 
 		window.addEventListener('resize', function() {
 			var WIDTH = window.innerWidth,
 			HEIGHT = window.innerHeight;
-			renderer.setSize(WIDTH, HEIGHT);
-			camera.aspect = WIDTH / HEIGHT;
-			camera.updateProjectionMatrix();
+			init.renderer.setSize(WIDTH, HEIGHT);
+			init.camera.aspect = WIDTH / HEIGHT;
+			init.camera.updateProjectionMatrix();
 		});
 
 		putLights();
 
-		var loader = new THREE.ColladaLoader();
-		loader.options.convertUpAxis = true;
-		loader.load(daeFile, function ( collada ) {
+		init.loader.options.convertUpAxis = true;
+		init.loader.load(daeFile, function ( collada ) {
 			var dae = collada.scene;
 			var skin = collada.skins[ 0 ];
 			dae.position.set(43,15,35);
 			dae.scale.set(10,10,10);
-			scene.add(dae);
+			init.scene.add(dae);
 		});
-
-		controls = new THREE.OrbitControls(camera, renderer.domElement);
+		
+		controls = new THREE.OrbitControls(init.camera, init.renderer.domElement);
 		controls.minDistance = 15;
 		controls.maxDistance = 50;
 		controls.minPolarAngle = 0;
@@ -46,41 +41,41 @@ define(['three', 'colladaLoader', 'orbitControls'], function(three, colladaLoade
 
 	function animate() {
 		requestAnimationFrame(animate);
-		camera.position.set(0, 45, 1);
-		camera.lookAt(scene.position);
-		renderer.render(scene, camera);
+		if(init.locked) {
+			init.camera.position.set(0, 45, 1);
+			init.camera.lookAt(init.scene.position);
+		}
+		init.renderer.render(init.scene, init.camera);
 		controls.update();
 	}
 
 	function putLights() {
 		var light = new THREE.PointLight(0xfffff3, 0.8);
 		light.position.set(-100, 200, 100);
-		scene.add(light);
+		init.scene.add(light);
 
 		var sphereSize = 1;
 		var pointLightHelper = new THREE.PointLightHelper(light, sphereSize);
-		scene.add(pointLightHelper);
+		init.scene.add(pointLightHelper);
 
 		var light2 = new THREE.PointLight(0xd7f0ff, 0.2);
 		light2.position.set(200, 200, 100);
-		scene.add(light2);
+		init.scene.add(light2);
 
-		var sphereSize = 1;
 		var pointLightHelper2 = new THREE.PointLightHelper(light2, sphereSize);
-		scene.add(pointLightHelper2);
+		init.scene.add(pointLightHelper2);
 
 		var light3 = new THREE.PointLight(0xFFFFFF, 0.5);
 		light3.position.set(150, 200, -100);
-		scene.add(light3);
+		init.scene.add(light3);
 
-		var sphereSize = 1;
 		var pointLightHelper3 = new THREE.PointLightHelper(light3, sphereSize);
-		scene.add(pointLightHelper3);
+		init.scene.add(pointLightHelper3);
 	}
 	
 	return {
 		show: function(daeFile) {
-			init(daeFile);
+			load(daeFile);
 			animate();
 		}
 	};

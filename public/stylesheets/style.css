@@ -1,8 +1,18 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+	position: relative;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	overflow: hidden;
 }
 
-a {
-  color: #00B7FF;
+.overlay {
+    position: absolute;
+    margin: 10px;
+    z-index: 20;
+}
+
+#lock {
+	right :0;
+	bottom: 0;
 }
