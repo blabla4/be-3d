@@ -4,6 +4,7 @@ define(['three', 'colladaLoader', 'orbitControls', 'jquery'], function(three, co
 		renderer: new THREE.WebGLRenderer({antialias:true}),
 		camera: new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 10000),
 		loader: new THREE.ColladaLoader(),
+		objects: [],
 		locked: true
   };
 });

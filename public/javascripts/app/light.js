@@ -10,6 +10,7 @@ define(['init', 'conf'], function(init, conf) {
 			temp.name = light.name;
 			
 			init.scene.add(temp);
+			init.objects.push(temp);
 		});
 	});
 });

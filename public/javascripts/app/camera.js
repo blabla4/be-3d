@@ -20,6 +20,8 @@ define(['init', 'conf'], function(init, conf) {
 				
 				init.scene.add(camBox);		
 				init.scene.add(camCone);
+				
+				init.objects.push(camBox);
 			});
 		});
 });

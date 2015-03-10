@@ -11,7 +11,8 @@ require.config({
 		cookie: 'app/cookie',
 		light: 'app/light',
 		conf: 'app/conf',
-		lock: 'app/lock'
+		lock: 'app/lock',
+		events: 'app/events'
   },
 	shim: {
 		'colladaLoader': {
@@ -25,11 +26,8 @@ require.config({
 
 require(['domReady',], function(domReady){
 	domReady(function() {
-		require(['room', 'camera', 'cookie', 'light', 'lock'], function(room) {
+		require(['room', 'camera', 'cookie', 'light', 'lock', 'events'], function(room) {
 			room.show('https://dl.dropboxusercontent.com/u/75902491/renduBlender.dae');
-			document.addEventListener('mousedown', function(event) {
-				
-			}, false);
 			return;
 		});
 	});
