@@ -5,6 +5,7 @@
 			"x": -16,
 			"y": 17,
 			"z": 0,
+			"remoteAddress": "http://10.134.15.50",
 			"url": "http://cs.isen.fr/camera/mjpg/video.mjpg",
 			"rotX": 0,
 			"rotY": 0.2,
@@ -15,13 +16,14 @@
 			"rotConeX": 0,
 			"rotConeY": 0.2,
 			"rotConeZ": 1.3,
-			"isControllable": true
+			"remoteAccess": true
 		},
 		{
 			"name": "cam2",
 			"x": -10.5,
 			"y": 17,
 			"z": -4,
+			"remoteAddress": "http://10.134.15.51",
 			"url": "http://cs.isen.fr/camera2/mjpg/video.mjpg",
 			"rotX": -0.2,
 			"rotY": 0,
@@ -32,7 +34,7 @@
 			"rotConeX": 0,
 			"rotConeY": 1.6,
 			"rotConeZ": 1.3,
-			"isControllable": false
+			"remoteAccess": true
 		}
 	]
 }

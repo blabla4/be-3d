@@ -4,9 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var routes = require('./routes/index');
 var conf = require('./routes/conf');
+var api = require('./routes/api');
+
+mongoose.connect('mongodb://datauser:v37spremXKDU@ds043350.mongolab.com:43350/mydatabase');
 
 var app = express();
 
@@ -19,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/conf', conf);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

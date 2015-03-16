@@ -1,25 +1,25 @@
 {
     "cookies": [
         {
-            "name": "cookie1",
+            "name": "Known Cramberry",
             "x": "-6.7",
             "y": "16.5",
             "z": "-3.3"
         },
         {
-            "name": "cookie2",
+            "name": "Double Passion",
             "x": "-8.75",
             "y": "16.5",
             "z": "-5.7"
         }, 
 		{
-			"name": "cookie3",
+			"name": "Double Anooshaboor",
 			"x": "-16",
             "y": "16.5",
             "z": "-2.45"
 		},
 		{
-			"name": "cookie4",
+			"name": "Purple Turon",
 			"x": "-17.75",
             "y": "16.5",
             "z": "0"

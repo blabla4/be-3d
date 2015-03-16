@@ -1,6 +1,5 @@
 define(['init'], function(init) {
-	var controls;
-	
+
 	function load(daeFile) {
 		var WIDTH = window.innerWidth,
 			HEIGHT = window.innerHeight;
@@ -18,7 +17,7 @@ define(['init'], function(init) {
 			init.camera.updateProjectionMatrix();
 		});
 		
-		putLights();
+		addLights();
 
 		init.loader.options.convertUpAxis = true;
 		init.loader.load(daeFile, function ( collada ) {
@@ -28,26 +27,9 @@ define(['init'], function(init) {
 			dae.scale.set(10,10,10);
 			init.scene.add(dae);
 		});
-		
-		controls = new THREE.OrbitControls(init.camera, init.renderer.domElement);
-		controls.minDistance = 15;
-		controls.maxDistance = 50;
-		controls.minPolarAngle = 0;
-		controls.maxPolarAngle = Math.PI / 3;
-		controls.zoomSpeed = 0.5;
 	}
-
-	function animate() {
-		requestAnimationFrame(animate);
-		if(init.locked) {
-			init.camera.position.set(0, 45, 1);
-			init.camera.lookAt(init.scene.position);
-		}
-		init.renderer.render(init.scene, init.camera);
-		controls.update();
-	}
-
-	function putLights() {
+	
+	function addLights() {
 		var light = new THREE.PointLight(0xfffff3, 0.8);
 		light.position.set(-100, 200, 100);
 		init.scene.add(light);
@@ -74,7 +56,6 @@ define(['init'], function(init) {
 	return {
 		show: function(daeFile) {
 			load(daeFile);
-			animate();
 		}
 	};
 });

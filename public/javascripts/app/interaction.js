@@ -9,7 +9,7 @@ define(['init'], function(init) {
 		var intersects = raycaster.intersectObjects(init.objects);
     if (intersects.length > 0) {
 			var object = intersects[0].object;
-			$(document).trigger(object.action, object);
+			object.action(object);
 		}
 	});
 });
