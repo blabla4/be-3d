@@ -22,6 +22,7 @@ define(['init'], function(init) {
 			'gl_FragColor = vec4( glow, 1.0 );' +
 		'}';
 	
+	// Cookies
 	var shaderMaterial = new THREE.ShaderMaterial( 
 	{
 	  uniforms: 
@@ -38,6 +39,34 @@ define(['init'], function(init) {
 		transparent: true
 	});
 	
+	// Lamps
+	var shaderMaterial2 = new THREE.ShaderMaterial({
+		uniforms: {
+			"c": {
+				type: "f",
+				value: 1.0
+			},
+			"p": {
+				type: "f",
+				value: 1.4
+		},
+			glowColor: {
+				type: "c",
+				value: new THREE.Color(0xffffff)
+			},
+			viewVector: {
+				type: "v3",
+				value: init.camera.position
+			}
+		},
+		vertexShader: vertexShader,
+		fragmentShader: fragmentShader,
+		side: THREE.FrontSide,
+		blending: THREE.AdditiveBlending,
+		transparent: true
+	});
+	
+	// Cookies
 	function createGlow(geometry, position, scale, color, isAnimated) {
 		var glow = new THREE.Mesh(geometry.clone(), shaderMaterial.clone());
 		glow.position.set(position.x, position.y, position.z);
@@ -49,6 +78,17 @@ define(['init'], function(init) {
 		}
 		init.scene.add(glow);
 		init.shaders.push(glow);
+	}
+	
+	// Lamps
+	function createHalo(geometry, position, scale, color) {
+		var halo = new THREE.Mesh(geometry.clone(), shaderMaterial2.clone());
+		halo.position.set(position.x, position.y, position.z);
+		halo.scale.set(scale, scale, scale);
+		halo.material.uniforms.glowColor.value = new THREE.Color(color);
+		init.scene.add(halo);
+		init.shaders.push(halo);
+		return halo;
 	}
 	
 	function addAnimation(shader) {
@@ -70,6 +110,9 @@ define(['init'], function(init) {
 	return {
 		createGlow: function(geometry, position, scale, color, isAnimated) {
 			createGlow(geometry, position, scale, color, isAnimated);
+		},
+		createHalo: function(geometry, position, scale, color) {
+			return createHalo(geometry, position, scale, color);
 		}
 	};
 });
