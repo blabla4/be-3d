@@ -90,6 +90,7 @@ define(['init', 'conf'], function(init, conf) {
 			var cross = $('<div>', {class: 'cross'});
 			cross.html('X');
 			cross.on('click touchstart', function() {
+				video.attr("src", "");
 				container.remove();
 			});
 			cross.appendTo(container);
