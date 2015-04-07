@@ -63,11 +63,12 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			});
 			sliderContainer.appendTo(container);
 			var slider = $('<div>', {
-				id: 'slider'
+				id: 'slider' + light.name,
+				class: 'slider'
 			});
 			slider.appendTo(sliderContainer);
 			$(function() {
-				$("#slider").slider({
+				$("#slider" + light.name).slider({
 					orientation: "horizontal",
 					min: 0,
 					max: 200,
@@ -76,7 +77,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 						changeLightBright(light, ui.value);
 					}
 				});
-				getBrightness(light.lightUrl, $('#slider'));
+				getBrightness(light.lightUrl, $('#slider' + light.name));
 			});
 			var palette = $('<div>', {
 				class: 'palette'

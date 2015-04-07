@@ -10,7 +10,8 @@ var routes = require('./routes/index');
 var conf = require('./routes/conf');
 var api = require('./routes/api');
 
-mongoose.connect('mongodb://datauser:v37spremXKDU@ds043350.mongolab.com:43350/mydatabase');
+//mongoose.connect('mongodb://datauser:v37spremXKDU@ds043350.mongolab.com:43350/mydatabase');
+mongoose.connect('10.134.15.101:27017/motherCapture');
 
 var app = express();
 

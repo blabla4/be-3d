@@ -2,30 +2,35 @@
     "cookies": [
         {
             "name": "Known Cramberry",
+            "type": "temperature",
             "x": "-6.7",
             "y": "16.5",
             "z": "-3.3"
         },
         {
             "name": "Double Passion",
+            "type": "temperature",
             "x": "-8.75",
             "y": "16.5",
             "z": "-5.7"
         }, 
 		{
 			"name": "Double Anooshaboor",
+            "type": "temperature",
 			"x": "-16",
             "y": "16.5",
             "z": "-2.45"
 		},
 		{
 			"name": "Purple Turon",
+            "type": "temperature",
 			"x": "-17.75",
             "y": "16.5",
             "z": "0"
 		},
 		{
-			"name": "cookie5",
+			"name": "Double Anooshaboor2",
+            "type": "motion",
 			"x": "-6.7",
             "y": " 16.5",
             "z": "-4"

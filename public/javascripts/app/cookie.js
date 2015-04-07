@@ -8,6 +8,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			temp.position.set(cookie.x, cookie.y, cookie.z);
 			temp.scale.set(0.01, 0.01, 0.01);
 			temp.overdraw = true;
+			temp.type = cookie.type;
 			temp.name = cookie.name;
 			temp.action = action;
 			shader.createGlow(sphereGeom, temp.position, 0.018, material.color, true);
@@ -16,7 +17,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 		});
 	});
 	
-	var getData = function(cookie, callback) {
+	var getTempData = function(cookie, callback) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
@@ -24,6 +25,17 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			}
 		};
 		xmlhttp.open("GET", "/api/formatedData/" + cookie.name, true);
+		xmlhttp.send();
+	};
+
+	var getMotionData = function(cookie, callback) {
+		var xmlhttp = new XMLHttpRequest();
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				callback(cookie, JSON.parse(xmlhttp.responseText));
+			}
+		};
+		xmlhttp.open("GET", "/api/motions", true);
 		xmlhttp.send();
 	};
 	
@@ -81,6 +93,48 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			}]
 		});
 	};
+
+	var drawMotionGraph = function(cookie, dataMotion) {
+		console.log(dataMotion);
+		$("[ id = '" + cookie.name + "'] .graph").highcharts({
+	        chart: {
+	          type: 'column'
+	        },
+	        title: {
+	          text: 'Number of drink coffees'
+	        },
+	        subtitle: {
+					text: 'Cookie: ' + cookie.name
+			},
+	        xAxis: {
+	          categories: dataMotion.day
+	        },
+	        yAxis: {
+	          min: 0,
+	          title: {
+	            text: 'Number of coffees'
+	          }
+	        },
+	        tooltip: {
+	          headerFormat: '<b>{point.key}</b><br>',
+	          pointFormat: 'Number of coffees: {point.y:.0f}'
+	        },
+	        plotOptions: {
+	          column: {
+	            pointPadding: 0.2,
+	            borderWidth: 0
+	          }
+	        },
+	        legend: {
+				enabled: false
+			},
+	        series: [{
+	          name: 'Coffees drink per days',
+	          data: dataMotion.number
+	        }]
+	    });
+	};
+
 	
 	var action = function(cookie) {
 		if (!$("[ id = '"+cookie.name+"']").length){
@@ -98,7 +152,13 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			cross.appendTo(container);
 			var graph = $('<div>', {class: 'graph'});
 			graph.appendTo(container);
-			getData(cookie, drawTempGraph);
+			if(cookie.type == 'temperature') {
+				getTempData(cookie, drawTempGraph);
+			}
+			else {
+				getMotionData(cookie, drawMotionGraph);
+			}
+			
 		}
 	};
 
