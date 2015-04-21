@@ -26,11 +26,6 @@ app.use('/', routes);
 app.use('/conf', conf);
 app.use('/api', api);
 
-
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', '10.134.15.1:4041/data/temperature/double%20anooshaboor');
-});
-
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
