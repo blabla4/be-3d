@@ -1,6 +1,6 @@
 define(['init', 'conf', 'shader'], function(init, conf, shader) {
 	var material = new THREE.MeshPhongMaterial({color: 0xffff00});
-	
+
 	conf.get('cookie', function(data) {
 		data.cookies.forEach(function(cookie) {
 			var sphereGeom = new THREE.SphereGeometry(20, 20, 0);
@@ -16,15 +16,16 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			init.objects.push(temp);
 		});
 	});
-	
+
 	var getTempData = function(cookie, callback) {
 		var xmlhttp = new XMLHttpRequest();
 		xmlhttp.onreadystatechange = function() {
 			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-				callback(cookie, JSON.parse(xmlhttp.responseText));
+				callback(cookie, JSON.parse(xmlhttp.responseText).data);
 			}
 		};
-		xmlhttp.open("GET", "/api/formatedData/" + cookie.name, true);
+		//xmlhttp.open("GET", "/api/formatedData/" + cookie.name, true);
+		xmlhttp.open("GET", "http://10.134.15.1:4041/data/temperature/" + cookie.name, true);
 		xmlhttp.send();
 	};
 
@@ -35,10 +36,10 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 				callback(cookie, JSON.parse(xmlhttp.responseText));
 			}
 		};
-		xmlhttp.open("GET", "/api/motions", true);
+		xmlhttp.open("GET", "http://10.134.15.1:4041/data/motion/" + cookie.name, true);
 		xmlhttp.send();
 	};
-	
+
 	var drawTempGraph = function(cookie, dataTemp) {
 		console.log(dataTemp);
 		$("[ id = '" + cookie.name + "'] .graph").highcharts({
@@ -86,7 +87,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 				data: (function() {
 						var value= [];
 						dataTemp.forEach(function(item) {
-							value.push({x: new Date(item.x), y: item.y});
+							value.push({x: new Date(item.date), y: item.value});
 						});
 						return value;
 					}())
@@ -135,7 +136,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 	    });
 	};
 
-	
+
 	var action = function(cookie) {
 		if (!$("[ id = '"+cookie.name+"']").length){
 			var container = $('<div>', {id: cookie.name, class: 'container draggable animated rubberBand'});
@@ -158,7 +159,7 @@ define(['init', 'conf', 'shader'], function(init, conf, shader) {
 			else {
 				getMotionData(cookie, drawMotionGraph);
 			}
-			
+
 		}
 	};
 
